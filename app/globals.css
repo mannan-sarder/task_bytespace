@@ -1,0 +1,217 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens
+ * Source of truth: Figma file "ByteSpace New", Home frame (node 1:1067).
+ *
+ * Names mirror the Figma variable names ("Shuttle Gray/950" -> shuttle-gray-950,
+ * "Heading L" -> text-heading-l). Tailwind's default color, radius, shadow and
+ * font-size scales are switched off on purpose, so a value that does not exist
+ * in the design cannot be used by accident.
+ */
+
+@theme {
+  /* Colors */
+  --color-*: initial;
+  --color-white: #FFFFFF;
+  --color-black-200: #D1D1D1;
+  --color-black-400: #888888;
+  --color-black-700: #4F4F4F;
+  --color-black-950: #000000;
+  --color-shuttle-gray-50: #F5F5F6;
+  --color-shuttle-gray-100: #E5E6E8;
+  --color-shuttle-gray-200: #CED0D3;
+  --color-shuttle-gray-300: #ABAEB5;
+  --color-shuttle-gray-400: #82868E;
+  --color-shuttle-gray-700: #4B4C53;
+  --color-shuttle-gray-800: #424348;
+  --color-shuttle-gray-900: #3A3B3F;
+  --color-shuttle-gray-950: #242528;
+  --color-electric-lime-400: #D4FB20;
+  --color-electric-lime-500: #CBFC01;
+  --color-persian-blue-800: #003BE2;
+  --color-electric-violet-600: #7F30F7;
+  --color-electric-violet-950: #300B6A;
+
+  /* Not in Figma: error color for form validation states, which the brief asks for */
+  --color-error: #D92D20;
+
+  /* Corner radius. 12, 16 and 24px match Tailwind's xl, 2xl and 3xl; 40px is added. rounded-full covers the 100px pill. */
+  --radius-*: initial;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-5xl: 2.5rem;
+
+  /* Shadows. Only Figma effect style "A" exists; it is applied to cut-out photos, so it is a drop-shadow (follows the alpha shape). */
+  --shadow-*: initial;
+  --drop-shadow-*: initial;
+  --drop-shadow-photo:
+    0.52px 0.74px 3.04px #0000000A,
+    2.23px 3.19px 5.72px #0000000F,
+    5.38px 7.69px 9.57px #00000012,
+    10.21px 14.58px 16.09px #00000014,
+    16.95px 24.21px 24px #00000017,
+    25.84px 36.91px 36px #0000001A,
+    37.12px 53.03px 56px #0000001B,
+    51.04px 72.91px 72px #00000021;
+
+  /* Layout: content width of the 1440px frame (120px side margins) */
+  --container-content: 75rem;
+
+  /* UNVERIFIED: the Figma grid line stroke could not be read (Figma MCP limit reached). Replace with the real value. */
+  --grid-line: rgb(255 255 255 / 0.1);
+
+  /* Font-size scale is replaced by the Figma text styles below */
+  --text-*: initial;
+}
+
+/* Font families. The CSS variables are set by next/font in lib/fonts.ts. */
+@theme inline {
+  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-logo: var(--font-clash-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+/*
+ * Text styles: one utility per Figma text style (family, weight, size, line height, letter spacing).
+ * Sizes are in rem (1rem = 16px) so they follow the user's font-size setting.
+ * Weight, line height and letter spacing read Tailwind's own variables first, so leading-*,
+ * font-* and tracking-* still override them where a Figma node differs from its text style.
+ * Responsive sizing is done by switching styles per breakpoint, e.g. "text-heading-m lg:text-heading-l".
+ */
+
+/* Poppins (heading, display) use -1% letter spacing; Satoshi (body, label) uses none */
+@utility text-heading-l {
+  @apply font-display;
+  font-size: 4.5rem; /* 72 */
+  font-weight: var(--tw-font-weight, 600);
+  line-height: var(--tw-leading, 1.2);
+  letter-spacing: var(--tw-tracking, -0.01em);
+}
+@utility text-heading-m {
+  @apply font-display;
+  font-size: 2.75rem; /* 44 */
+  font-weight: var(--tw-font-weight, 600);
+  line-height: var(--tw-leading, 1.2);
+  letter-spacing: var(--tw-tracking, -0.01em);
+}
+@utility text-heading-s {
+  @apply font-display;
+  font-size: 1.5rem; /* 24 */
+  font-weight: var(--tw-font-weight, 600);
+  line-height: var(--tw-leading, 2rem);
+  letter-spacing: var(--tw-tracking, -0.01em);
+}
+@utility text-heading-xs {
+  @apply font-display;
+  font-size: 1.25rem; /* 20 */
+  font-weight: var(--tw-font-weight, 600);
+  line-height: var(--tw-leading, 1.2);
+  letter-spacing: var(--tw-tracking, -0.01em);
+}
+@utility text-display-s {
+  @apply font-display;
+  font-size: 2.75rem; /* 44 */
+  font-weight: var(--tw-font-weight, 500);
+  line-height: var(--tw-leading, 3.25rem);
+  letter-spacing: var(--tw-tracking, -0.01em);
+}
+@utility text-display-xs {
+  @apply font-display;
+  font-size: 2.25rem; /* 36 */
+  font-weight: var(--tw-font-weight, 500);
+  line-height: var(--tw-leading, 2.75rem);
+  letter-spacing: var(--tw-tracking, -0.01em);
+}
+@utility text-body-l {
+  @apply font-sans;
+  font-size: 1.125rem; /* 18 */
+  font-weight: var(--tw-font-weight, 400);
+  line-height: var(--tw-leading, 1.6);
+}
+@utility text-body-m {
+  @apply font-sans;
+  font-size: 1rem; /* 16 */
+  font-weight: var(--tw-font-weight, 400);
+  line-height: var(--tw-leading, 1.5rem);
+}
+@utility text-body-s {
+  @apply font-sans;
+  font-size: 0.875rem; /* 14 */
+  font-weight: var(--tw-font-weight, 400);
+  line-height: var(--tw-leading, 1.6);
+}
+@utility text-body-xs {
+  @apply font-sans;
+  font-size: 0.75rem; /* 12 */
+  font-weight: var(--tw-font-weight, 400);
+  line-height: var(--tw-leading, 1.6);
+}
+@utility text-label-xl {
+  @apply font-sans;
+  font-size: 1.25rem; /* 20 */
+  font-weight: var(--tw-font-weight, 500);
+  line-height: var(--tw-leading, 1.2);
+}
+@utility text-label-l {
+  @apply font-sans;
+  font-size: 1.125rem; /* 18 */
+  font-weight: var(--tw-font-weight, 500);
+  line-height: var(--tw-leading, 1.2);
+}
+@utility text-label-m {
+  @apply font-sans;
+  font-size: 1rem; /* 16 */
+  font-weight: var(--tw-font-weight, 500);
+  line-height: var(--tw-leading, 1.2);
+}
+@utility text-label-s {
+  @apply font-sans;
+  font-size: 0.875rem; /* 14 */
+  font-weight: var(--tw-font-weight, 500);
+  line-height: var(--tw-leading, 1.2);
+}
+@utility text-label-xs {
+  @apply font-sans;
+  font-size: 0.75rem; /* 12 */
+  font-weight: var(--tw-font-weight, 500);
+  line-height: var(--tw-leading, 1.25rem);
+}
+
+/* 120px grid of 1px lines; the line color is read from the Figma line strokes */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 120px 120px;
+}
+
+@layer base {
+  body {
+    @apply bg-white font-sans text-body-m text-shuttle-gray-950 antialiased;
+  }
+
+  /* Tailwind resets buttons to the default cursor */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* Follows the text color, so it stays visible on both light and blue backgrounds */
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
