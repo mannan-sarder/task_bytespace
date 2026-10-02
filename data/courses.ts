@@ -45,7 +45,7 @@ export const COURSES: Course[] = COURSE_SEEDS.map((seed) => ({
   price: "$25",
   priceSuffix: "/lifetime",
   thumbnail: {
-    src: `/images/courses/${seed.thumbnail}.png`,
+    src: `/images/courses/${seed.thumbnail}.jpg`,
     width: 341,
     height: 195,
     alt: "",
@@ -66,3 +66,6 @@ export const AUTH_SHOWCASE_COURSES = {
   back: requireCourse("build-digital-asset"),
   front: requireCourse("power-of-big-data"),
 };
+
+/** The course card drawn in the "Your Path to Professional Growth" section of the Home page. */
+export const FEATURED_COURSE = requireCourse("learn-figma-from-basic");

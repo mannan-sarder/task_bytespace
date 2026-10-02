@@ -46,15 +46,7 @@
   /* Shadows. Only Figma effect style "A" exists; it is applied to cut-out photos, so it is a drop-shadow (follows the alpha shape). */
   --shadow-*: initial;
   --drop-shadow-*: initial;
-  --drop-shadow-photo:
-    0.52px 0.74px 3.04px #0000000A,
-    2.23px 3.19px 5.72px #0000000F,
-    5.38px 7.69px 9.57px #00000012,
-    10.21px 14.58px 16.09px #00000014,
-    16.95px 24.21px 24px #00000017,
-    25.84px 36.91px 36px #0000001A,
-    37.12px 53.03px 56px #0000001B,
-    51.04px 72.91px 72px #00000021;
+
 
   /* Layout: content width of the 1440px frame (120px side margins) */
   --container-content: 75rem;
@@ -214,4 +206,9 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Figma effect style "A" as a drop-shadow stack. Defined as a utility because a theme value cannot hold several drop-shadow() functions. */
+@utility drop-shadow-photo {
+  filter: drop-shadow(0.52px 0.74px 3.04px #0000000A) drop-shadow(2.23px 3.19px 5.72px #0000000F) drop-shadow(5.38px 7.69px 9.57px #00000012) drop-shadow(10.21px 14.58px 16.09px #00000014) drop-shadow(16.95px 24.21px 24px #00000017) drop-shadow(25.84px 36.91px 36px #0000001A) drop-shadow(37.12px 53.03px 56px #0000001B) drop-shadow(51.04px 72.91px 72px #00000021);
 }

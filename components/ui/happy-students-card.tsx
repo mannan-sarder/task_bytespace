@@ -44,7 +44,7 @@ export function HappyStudentsCard({ variant = "hero", className }: HappyStudents
           <span className={cn("text-shuttle-gray-950", !isHero && "font-bold")}>{rating}&nbsp;</span>
           <span>{reviews}</span>
           <Image
-            src="/images/icons/star-blue.svg"
+            src={isHero ? "/images/icons/star-lime.svg" : "/images/icons/star-blue.svg"}
             alt=""
             width={16}
             height={16}
